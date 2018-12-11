@@ -1,5 +1,7 @@
-{
-  run : function () {
-    console.log('updated script')
+module.exports = {
+  runScript : function () {
+    console.log('runScript')
   }
+  
+  
 }
