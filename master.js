@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Planswell - Salesforce Task UI
+// @name         Planswell - Test Script
 // @namespace    http://tampermonkey.net/
 // @version      2.1
 // @description  try to take over the world!
