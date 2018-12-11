@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Planswell - Salesforce Task UI
 // @namespace    http://tampermonkey.net/
-// @version      2
+// @version      2.1
 // @description  try to take over the world!
 // @author       You
 // @match        https://planswell.lightning.force.com/lightning/o/Task/list*
@@ -13,5 +13,5 @@
 (function() {
     'use strict';
 
-    console.log('updated');
+    console.log('updated to 2.1');
 })();
