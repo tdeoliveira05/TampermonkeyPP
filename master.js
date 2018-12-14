@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Planswell - TamperMonkey for Plan Pros
 // @namespace    http://tampermonkey.net/
-// @version      2.2
+// @version      3
 // @description  Salesforce General UI Manipulations
 // @author       You
 // @match        https://planswell.lightning.force.com/*
