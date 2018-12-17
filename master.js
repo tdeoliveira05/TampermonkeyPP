@@ -71,11 +71,6 @@
                 code: "!",
                 description: "Important",
                 color: "#FFE9C6"
-            },
-            {
-                code: "%",
-                description: 'high priority',
-                color: 'cyan'
             }
         ]
 
