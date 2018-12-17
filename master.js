@@ -83,10 +83,12 @@
     //---------------------------------------- 2-second Userscript Loop ------------------------------------------------//
 
     setInterval(() => {
-        // Run color coding if user is in the task list view
-        if (document.URL.startsWith('https://planswell.lightning.force.com/lightning/o/Task/list')) {
+        // Run color coding if user is in the task tab
+        if (document.URL.startsWith('https://planswell.lightning.force.com/lightning/o/Task/')) {
             taskListColorCoding();
+            console.log("Tampermonkey for Plan Pros - Task List for Color Coding")
         }
+        
     }, 2000);
 
 
