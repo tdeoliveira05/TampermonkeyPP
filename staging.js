@@ -78,36 +78,7 @@
         colorCodeActivate(anchorArray);
     }
 
-    //------------------------------------------------------------------------------------------------------------------//
-
-    //---------------------------------------- Automatic Task Creation ------------------------------------------------//
-
-    // A function to update the interface by forcing a user click on the new task tab
-    function updateInterface () {
-        document.querySelector('a[title="New Task"]').click()
-
-        // For added functionality, implement a autofiller for the task subject based on the current stage of the lead/household
-        // addPresetTask()
-    }
-
-    /*
-     *----------------------------------------
-     * The primary executable function to call
-     *----------------------------------------
-     */
-
-    function automaticTaskCreation () {
-        document.onclick = function (e)  {
-            var clickedElement = e.target;
-
-            if (clickedElement.getAttribute('class') === 'inputCheckbox' && clickedElement.getAttribute('type') === 'checkbox' && clickedElement.getAttribute('checked') !== 'checked') {
-                console.log('TamperMonkey for Plan Pros - A task was checked/unchecked.');
-                alert('Remember to add a new task');
-                updateInterface();
-            }
-        }
-    }
-
+   
     //------------------------------------------------------------------------------------------------------------------//
     //---------------------------------------- 2-second Userscript Loop ------------------------------------------------//
 
@@ -118,13 +89,9 @@
         }
 
 
-        if (document.URL.startsWith('https://planswell.lightning.force.com/lightning/r/Lead/') || document.URL.startsWith('https://planswell.lightning.force.com/lightning/r/Account/')) {
-            updateGlobalVariables(['leadStage', 'householdStage']);
-            automaticTaskCreation();
-        }
 
 
-    }, 1000);
+    }, 2000);
 
 
 
