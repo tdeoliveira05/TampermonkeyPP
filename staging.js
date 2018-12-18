@@ -108,55 +108,6 @@
         }
     }
 
-
-
-
-
-    //------------------------------------------------------------------------------------------------------------------//
-    //--------------------------------------- Contextual Global Variables ----------------------------------------------//
-
-    var leadStage, householdStage;
-
-    var leadStageList = [
-        'Filtering',
-        'Contact Made',
-        'Appointment Booked',
-        'Appointment Held'
-        ]
-
-    var householdStageList = [
-        'Consulting',
-        'Pre-Processing',
-        'Processing',
-        'Partial',
-        'Survey'
-        ]
-
-
-    function updateLeadStage () {
-        var leadStageElement = document.querySelector('a[aria-selected="true"]')
-
-        if (leadStageElement && leadStageList.includes(leadStageElement.getAttribute('data-tab-name'))) {
-            leadStage = leadStageElement.getAttribute('data-tab-name')
-            console.log(leadStage)
-        } else {
-            console.log('else loop')
-            console.log(leadStageElement)
-        }
-    }
-
-    /*
-     *----------------------------------------
-     * The primary executable function to call
-     *----------------------------------------
-     */
-
-    function updateGlobalVariables (contextArray) {
-        if (contextArray.includes('leadStage')) {
-            // updateLeadStage();
-        }
-    }
-
     //------------------------------------------------------------------------------------------------------------------//
     //---------------------------------------- 2-second Userscript Loop ------------------------------------------------//
 
