@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Planswell - TamperMonkey for Plan Pros
 // @namespace    http://tampermonkey.net/
-// @version      4
+// @version      5
 // @description  Salesforce General UI Manipulations
 // @author       You
 // @match        https://planswell.lightning.force.com/*
@@ -157,8 +157,10 @@
 
     //-------------------------------------------------- Duplicate Alarm -----------------------------------------------//
 
+    // A function to check whether there are more than zero duplicates on this lead by trying to read a number from the duplicate banner
     function duplicatePresent (duplicateBanner) {
         var check = false;
+
 
         var hasNumbersFunction = /\d/
 
@@ -170,6 +172,9 @@
         } else {
             console.log("No duplicate found")
         }
+
+
+
 
         return check
     }
@@ -183,12 +188,18 @@
 
     function duplicateAlarm () {
 
-        var duplicateBanner = document.getElementsByTagName('header')[2]
+        var duplicateBanner
 
-        if (duplicatePresent(duplicateBanner)) {
-            console.log('message received')
+        if (document.getElementsByTagName('header')[2]) {
+            duplicateBanner = document.getElementsByTagName('header')[2]
+        } else {
+            return
+        }
+
+        if (duplicatePresent(duplicateBanner) && duplicateBanner) {
             duplicateBanner.parentNode.parentNode.setAttribute("style", "background-color: #FFC6C6 !important")
             document.getElementsByTagName('header')[2].parentNode.getElementsByTagName("a")[0].setAttribute("style", "font-size: 1.6em !important")
+            console.log('Alarm being set off')
         } else {
             console.log("No alarm set off");
         }
@@ -200,16 +211,14 @@
 
     // Add relevant click events
     document.addEventListener('click', function (event) {
-        console.log("event firewd")
+        console.log("event fired")
         // Prevent email sent without subject line
         if (event.target.innerHTML === 'Send') {
-            preventEmailWithoutSubject(event);
+            // preventEmailWithoutSubject(event);
         }
     })
 
     setInterval(() => {
-
-
 
 
         // Run color coding if user is in the task list view
@@ -230,3 +239,4 @@
 
 
 })();
+
