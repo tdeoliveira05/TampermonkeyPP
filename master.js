@@ -46,13 +46,28 @@
             if (item.title) {
                 var letterArray = item.title.split('');
                 criteria.forEach((obj) => {
+                    var anchorObj
                     if (letterArray[0] === obj.code) {
-                        var anchorObj = {
+                        anchorObj = {
                             anchor: item,
                             meta: obj
                         }
                         anchorArray.push(anchorObj)
+                    } else if (letterArray.join("").toLowerCase().startsWith("trading")) {
+                        // Special case to highlight tasks starting with "trading"
+                        anchorObj = {
+                            anchor: item,
+                            meta: {
+                                highlight: "background-color",
+                                color: {
+                                    standard: "#a2e8c3",
+                                    hover: "#a2e8c3"
+                                }
+                            }
+                        }
+                        anchorArray.push(anchorObj)
                     }
+
                 })
             }
         }
@@ -80,13 +95,14 @@
     // A function to execute the color coding by reading an array of information objects contain an anchor element and it's color coding metadata
     function colorCodeActivate(anchorArray, optionalVariables) {
 
+        console.log(anchorArray)
+
         if (optionalVariables) {
             anchorArray.forEach((arrayObj) => {
 
                 if (optionalVariables.removeCodeFromText) {
                     arrayObj = removeCodeFromText(arrayObj);
                 }
-
 
                 var tableRow = arrayObj.anchor.parentNode.parentNode.parentNode
                 tableRow.setAttribute("style", arrayObj.meta.highlight + " : " + arrayObj.meta.color.standard + " !important;");
