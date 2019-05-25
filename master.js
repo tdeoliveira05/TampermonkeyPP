@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Planswell - TamperMonkey for Plan Pros
 // @namespace    http://tampermonkey.net/
-// @version      6
+// @version      7
 // @description  Salesforce General UI Manipulations
 // @author       You
 // @match        https://planswell.lightning.force.com/*
@@ -13,23 +13,6 @@
 
 (function() {
     'use strict';
-    // test
-
-    //---------------------------------------------- preventEmailWithoutSubject -------------------------------------------//
-    function preventEmailWithoutSubject(event) {
-        var subjectLine = document.querySelectorAll('input[placeholder="Enter Subject..."]')[0].value;
-
-        if (subjectLine === "") {
-            event = null;
-            console.log(event)
-            alert("Please fill out a subject line")
-        } else {
-            event.run();
-        }
-
-        return
-    }
-
     //---------------------------------------------- Task List Color Coding -------------------------------------------//
 
     // A function to extract the title of each link (aka "Anchors") in the task list. A list of all titles with priority codes is returned to the function.
@@ -95,7 +78,7 @@
     // A function to execute the color coding by reading an array of information objects contain an anchor element and it's color coding metadata
     function colorCodeActivate(anchorArray, optionalVariables) {
 
-        console.log(anchorArray)
+        // console.log(anchorArray)
 
         if (optionalVariables) {
             anchorArray.forEach((arrayObj) => {
@@ -184,9 +167,9 @@
 
         if (hasNumbersFunction.test(duplicateText)) {
             check = true
-            console.log("Duplicate found")
+            //console.log("Duplicate found")
         } else {
-            console.log("No duplicate found")
+            //console.log("No duplicate found")
         }
 
 
@@ -221,18 +204,33 @@
         }
     }
 
+    //---------------------------------------------- automaticTaskPop -------------------------------------------//
+    function automaticTaskPop() {
+
+        // If the element does not have a "checked" attribute, then the user just checked off a checkbox
+        var tempElement = document.querySelectorAll("a[data-tab-name = NewTask]")[0]
+
+        tempElement.setAttribute("style", "background-color: #FFC6C6 !important")
+        tempElement.click()
+
+
+        return
+    }
+
 
     //------------------------------------------------------------------------------------------------------------------//
-    //---------------------------------------- 2-second Userscript Loop ------------------------------------------------//
+    //---------------------------------------- Document event listener ------------------------------------------------//
 
     // Add relevant click events
     document.addEventListener('click', function (event) {
-        console.log("event fired")
         // Prevent email sent without subject line
-        if (event.target.innerHTML === 'Send') {
-            // preventEmailWithoutSubject(event);
+        if (event.srcElement.className === "inputCheckbox" && !event.srcElement.getAttribute("checked") && (document.URL.startsWith('https://planswell.lightning.force.com/lightning/r/Lead/') || document.URL.startsWith('https://planswell.lightning.force.com/lightning/r/Account/'))) {
+            automaticTaskPop()
         }
     })
+
+    //------------------------------------------------------------------------------------------------------------------//
+    //---------------------------------------- 2-second Userscript Loop ------------------------------------------------//
 
     setInterval(() => {
 
@@ -244,8 +242,9 @@
 
         // Run duplicate alarm if duplicates are found
         if (document.URL.startsWith('https://planswell.lightning.force.com/lightning/r/Lead/')) {
-            console.log("lead alarm fired");
+            //console.log("lead alarm fired");
             duplicateAlarm();
+
         }
 
 
