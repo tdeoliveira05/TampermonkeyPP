@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Planswell - TamperMonkey for Plan Pros
 // @namespace    http://tampermonkey.net/
-// @version      7
+// @version      8
 // @description  Salesforce General UI Manipulations
 // @author       You
 // @match        https://planswell.lightning.force.com/*
@@ -209,9 +209,19 @@
 
         // If the element does not have a "checked" attribute, then the user just checked off a checkbox
         var tempElement = document.querySelectorAll("a[data-tab-name = NewTask]")[0]
-
         tempElement.setAttribute("style", "background-color: #FFC6C6 !important")
-        tempElement.click()
+
+        if (tempElement.getAttribute("aria-selected") === "false") {
+            // Click on the tab if it is not yet activated
+            tempElement.click()
+        } else {
+            // Access the ui button for a new task if the user is already on the task tab
+            document.getElementsByClassName("slds-button slds-button--brand testid__dummy-button-submit-action slds-col slds-no-space dummyButtonSubmitAction uiButton")[0].click()
+        }
+
+
+
+        
 
 
         return
